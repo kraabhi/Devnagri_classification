@@ -22,3 +22,16 @@ learn.recorder.plot()
 
 learn.unfreeze()  # unfreeze model and train on different lr to check model performance
 learn.fit_one_cycle(4, max_lr=slice(1e-5, 1e-4))
+
+# epoch	train_loss	valid_loss	error_rate	time
+# 0	0.286115	0.112922	0.034143	02:48
+# 1	0.168675	0.066489	0.021100	02:47
+# 2	0.107810	0.048818	0.015281	02:52
+# 3	0.085563	0.043732	0.013363	02:51
+
+learn.save("devnagri_model_v2")
+
+interep = ClassificationInterpretation.from_learner(learn)
+losses, idex=interep.top_losses()
+interep.plot_top_losses(3,figsize=(10,12))
+interep.plot_confusion_matrix(figsize=(10,15), dpi=60)
